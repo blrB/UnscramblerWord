@@ -1,5 +1,6 @@
 package com.unscrambler.services
 
+import com.unscrambler.models.ComparableWordHashResult
 import com.unscrambler.models.Language
 import com.unscrambler.models.Word
 import org.springframework.stereotype.Service
@@ -8,10 +9,11 @@ import org.springframework.stereotype.Service
 class WordServiceImpl(val dictionaryService: DictionaryService) : WordService {
 
     override fun findAllByTemplate(language: Language, letters: String): List<Word> {
-        println("Lang: $language, letter: $letters")
         val dictionary = dictionaryService.getDictionaryByLanguage(language)
-        println(dictionary.toString())
-        return dictionary.words
+        val word = Word(letters, language)
+        var words = dictionary.words.filter { word.compareTo(it) != ComparableWordHashResult.DOES_NOT_MATCH }
+        words = words.sortedByDescending { it.size }
+        return words
     }
 
 }

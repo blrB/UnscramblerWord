@@ -1,14 +1,19 @@
 package com.unscrambler.models
 
+import com.fasterxml.jackson.annotation.JsonIgnore
 import javax.persistence.*
 
 @Entity
 @Table(name = "words")
 data class Word(val string: String = "", val lang: Language = Language.EN,
-                @Id @GeneratedValue(strategy = GenerationType.AUTO) var id: Long = 0) : HashWord {
+                @Id @JsonIgnore @GeneratedValue(strategy = GenerationType.AUTO) var id: Long = 0) : HashWord {
 
+    val size = string.length
+
+    @JsonIgnore
     val hash = getHashByWord()
 
+    @JsonIgnore
     override fun getHashByWord(): String {
         val alphabet = lang.alphabet
         var hash = ""
