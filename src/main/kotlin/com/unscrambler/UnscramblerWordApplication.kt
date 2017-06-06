@@ -12,7 +12,11 @@ import org.springframework.boot.SpringApplication
 import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.cache.annotation.EnableCaching
 import org.springframework.context.annotation.Bean
-import java.io.File
+import org.springframework.core.io.ClassPathResource
+import java.io.InputStreamReader
+import java.io.BufferedReader
+
+
 
 @SpringBootApplication
 @EnableCaching
@@ -29,15 +33,16 @@ open class UnscramblerWordApplication(val dictionaryRepository: DictionaryReposi
     }
 
     private fun addWordAndCreateDictionary(lang: Language) {
-        val file = File(path(lang))
+        val resource = ClassPathResource(path(lang))
+        val reader = BufferedReader(InputStreamReader(resource.inputStream))
         val words = arrayListOf<Word>()
         log.info("Read $lang dictionary")
-        file.forEachLine { words.add(wordRepository.save(Word(it, lang))) }
+        reader.forEachLine { words.add(wordRepository.save(Word(it, lang))) }
         dictionaryRepository.save(Dictionary(lang, words))
         log.info("In $lang dictionary add ${words.size} word")
     }
 
-    fun path(lang: Language) = "src/main/resources/dictionary/${lang.code()}.txt"
+    fun path(lang: Language) = "dictionary/${lang.code()}.txt"
 
 }
 
