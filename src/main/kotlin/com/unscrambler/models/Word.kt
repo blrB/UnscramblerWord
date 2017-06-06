@@ -5,8 +5,11 @@ import javax.persistence.*
 
 @Entity
 @Table(name = "words")
-data class Word(val string: String = "", val lang: Language = Language.EN,
+data class Word(var string: String = "", val lang: Language = Language.EN,
                 @Id @JsonIgnore @GeneratedValue(strategy = GenerationType.AUTO) var id: Long = 0) : HashWord {
+    init {
+        string = string.toLowerCase()
+    }
 
     val size = string.length
 
