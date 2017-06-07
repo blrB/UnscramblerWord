@@ -1,0 +1,30 @@
+body {
+    display: flex;
+    min-height: 100vh;
+    flex-direction: column;
+}
+
+main {
+    flex: 1 0 auto;
+    padding-bottom: 30px;
+}
+
+footer {
+    padding-top: 0 !important;
+    position: fixed;
+    width: 100%;
+    bottom: 0;
+}
+
+.lang {
+    padding: 0 5px 0 5px;
+}
+
+.letters-block {
+    margin-top: 10px;
+}
+
+#letters {
+    background-color: white;
+}
+

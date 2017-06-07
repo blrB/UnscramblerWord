@@ -29,6 +29,7 @@ class DictionaryLoader(val dictionaryRepository: DictionaryRepository,
         reader.forEachLine { words.add(wordRepository.save(Word(it, lang))) }
         dictionaryRepository.save(Dictionary(lang, words))
         log.info("In $lang dictionary add ${words.size} word")
+        dictionaryRepository.findByLanguage(lang)
     }
 
     fun path(lang: Language) = "dictionary/${lang.code()}.txt"

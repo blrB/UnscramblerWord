@@ -4,8 +4,24 @@
     <title th:text="#{indexTitle}"></title>
 </head>
 <body>
-    <header th:replace="layout :: site-header" ></header>
+    <div th:replace="layout :: site-header"></div>
 
+    <main>
+        <div class="container">
+            <div class="row">
+                <div class="card-panel grey">
+                    <span class="white-text" th:text="#{message}"></span>
+                    <div class="letters-block">
+                        <input id="letters" type="text" autocomplete="off"/>
+                    </div>
+                    <p id="lang" th:text="#{lang}" class="hide"></p>
+                </div>
+                <div class="card-panel grey white-text">
+                    <div id="result" th:text="#{resultMessage}"></div>
+                </div>
+            </div>
+        </div>
+    </main>
 
     <footer th:replace="layout :: site-footer" ></footer>
 </body>
