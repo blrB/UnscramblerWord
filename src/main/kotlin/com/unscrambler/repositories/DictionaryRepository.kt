@@ -9,7 +9,7 @@ import org.springframework.stereotype.Repository
 @Repository
 interface DictionaryRepository : CrudRepository<Dictionary, Long> {
 
-    @Cacheable("dictionary")
+    @Cacheable(value = "dictionary",  unless = "#result.size() == 0")
     fun findByLanguage(language: Language): List<Dictionary>
 
 }
